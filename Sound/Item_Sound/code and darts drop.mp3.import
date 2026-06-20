@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://s168i57eql28"
+path="res://.godot/imported/code and darts drop.mp3-73498b195cba9ed559a8cafee9476e6b.mp3str"
+
+[deps]
+
+source_file="res://Sound/Item_Sound/code and darts drop.mp3"
+dest_files=["res://.godot/imported/code and darts drop.mp3-73498b195cba9ed559a8cafee9476e6b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

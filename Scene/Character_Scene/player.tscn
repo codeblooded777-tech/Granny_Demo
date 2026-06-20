@@ -1,0 +1,212 @@
+[gd_scene load_steps=10 format=3 uid="uid://cg1mgph6smbq4"]
+
+[ext_resource type="Script" uid="uid://k7md3d3k7dvu" path="res://Script/Player_Script/player.gd" id="1_3ca30"]
+[ext_resource type="Texture2D" uid="uid://1hhwm7hq8x5w" path="res://Texture/crosshair001.png" id="2_dhjtn"]
+[ext_resource type="Texture2D" uid="uid://ctatrdx11bp2h" path="res://Texture/MainSight(E).png" id="3_yksx1"]
+[ext_resource type="FontFile" uid="uid://coa526i6hr1xy" path="res://Font/DoubleHomicide.ttf" id="4_tbfct"]
+[ext_resource type="Texture2D" uid="uid://b1y5q3sw2cehb" path="res://Texture/Granny_Curve_Progress.png" id="5_s7wpy"]
+[ext_resource type="Texture2D" uid="uid://g8oduw7ap3xj" path="res://Texture/Hold_F_To_Remove.png" id="6_rsv7v"]
+[ext_resource type="Texture2D" uid="uid://cjsvrhsusaok6" path="res://Texture/i8cGom.png" id="7_rsv7v"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j47wa"]
+radius = 0.2
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kelma"]
+radius = 0.2
+
+[node name="Player" type="CharacterBody3D" groups=["players"]]
+collision_mask = 718
+script = ExtResource("1_3ca30")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Subviewport_Camera" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+cull_mask = 524288
+
+[node name="MainSight" type="TextureRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_dhjtn")
+stretch_mode = 3
+
+[node name="MainSight2" type="TextureRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_yksx1")
+stretch_mode = 3
+
+[node name="DropMessage" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -144.0
+offset_top = -128.0
+offset_right = 144.0
+offset_bottom = -77.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_tbfct")
+theme_override_font_sizes/font_size = 50
+text = "(Space) to drop"
+
+[node name="BearTrapProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+fill_mode = 4
+radial_initial_angle = 214.0
+radial_fill_degrees = 300.0
+texture_progress = ExtResource("5_s7wpy")
+
+[node name="Hold_To_Remove" type="TextureRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_rsv7v")
+
+[node name="BloodScreen" type="TextureRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("7_rsv7v")
+expand_mode = 1
+
+[node name="Message_label" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 60.0
+offset_right = 64.0
+offset_bottom = 111.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_tbfct")
+theme_override_font_sizes/font_size = 50
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemNameLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 124.0
+offset_right = 64.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_tbfct")
+theme_override_font_sizes/font_size = 50
+horizontal_alignment = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_j47wa")
+
+[node name="Mesh" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_kelma")
+
+[node name="HeadOriginalPosition" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79, 0)
+
+[node name="Head" type="Node3D" parent="HeadOriginalPosition"]
+unique_name_in_owner = true
+
+[node name="CameraSmooth" type="Node3D" parent="HeadOriginalPosition/Head"]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="HeadOriginalPosition/Head/CameraSmooth"]
+unique_name_in_owner = true
+cull_mask = 524285
+
+[node name="flashlight" type="SpotLight3D" parent="HeadOriginalPosition/Head/CameraSmooth/Camera3D"]
+unique_name_in_owner = true
+visible = false
+spot_range = 50.0
+
+[node name="ItemHolder" type="Node3D" parent="HeadOriginalPosition/Head/CameraSmooth/Camera3D"]
+
+[node name="hold_point" type="Marker3D" parent="HeadOriginalPosition/Head/CameraSmooth/Camera3D/ItemHolder"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.56676584, -0.28808033, -0.89254093)
+
+[node name="StairsAheadRayCast3D" type="RayCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.8941545, 0.44775918, 0, -0.44775918, 0.8941545, 0, 1.031, -0.007)
+target_position = Vector3(0, -1.5, -1.6)
+collision_mask = 4
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="StairsBelowRayCast3D" type="RayCast3D" parent="."]
+unique_name_in_owner = true
+target_position = Vector3(0, -0.29, 0)
+collision_mask = 4
+hit_from_inside = true
+collide_with_areas = true

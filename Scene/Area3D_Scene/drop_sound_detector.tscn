@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://73qa6t2dmrbf"]
+
+[ext_resource type="Script" uid="uid://3ahtiapru5d5" path="res://Script/Detector_Script/drop_sound_detector.gd" id="1_tyniv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7ska8"]
+
+[node name="drop_sound_detector" type="Area3D"]
+script = ExtResource("1_tyniv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_7ska8")

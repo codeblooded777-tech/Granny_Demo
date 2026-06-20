@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b2ps7ul1b7553"
+path="res://.godot/imported/wooden box.mp3-6bab611ca9c40e1d8f174f943db2f375.mp3str"
+
+[deps]
+
+source_file="res://Sound/Falling_Noise/wooden box.mp3"
+dest_files=["res://.godot/imported/wooden box.mp3-6bab611ca9c40e1d8f174f943db2f375.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

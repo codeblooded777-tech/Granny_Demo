@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://vp4xt1rhh0u7"
+path="res://.godot/imported/dropping cutting pliers.mp3-2b6767dbabd372973cb4dd3f4b3b9f7a.mp3str"
+
+[deps]
+
+source_file="res://Sound/Item_Sound/dropping cutting pliers.mp3"
+dest_files=["res://.godot/imported/dropping cutting pliers.mp3-2b6767dbabd372973cb4dd3f4b3b9f7a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
