@@ -26,6 +26,7 @@ players=""
 items=""
 ground=""
 enemy=""
+drawer_remote=""
 
 [input]
 
@@ -132,3 +133,4 @@ lights_and_shadows/directional_shadow/soft_shadow_filter_quality=4
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality=4
 environment/ssao/quality=1
 environment/ssil/quality=1
+occlusion_culling/use_occlusion_culling=true

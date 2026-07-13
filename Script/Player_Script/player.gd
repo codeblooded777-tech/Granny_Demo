@@ -3,6 +3,8 @@ extends CharacterBody3D
 # https://www.youtube.com/@codeblooded-v4e - My Youtube Channel
 # Please like, share and subscribe - Please subscribe it really helps me make more tutorials. Thanks!
 # https://sketchfab.com/alpez791 - My Sketchfab Voxel Model only
+# If you have any questions, feel free to message me.
+# GMAIL: codeblooded777@gmail.com
 #_________              .___      __________ .__                       .___           .___ 
 #\_   ___ \   ____    __| _/ ____ \______   \|  |    ____    ____    __| _/ ____    __| _/ 
 #/    \  \/  /  _ \  / __ |_/ __ \ |    |  _/|  |   /  _ \  /  _ \  / __ |_/ __ \  / __ |  
@@ -88,6 +90,9 @@ const UNTRAP_DURATION := 3.0
 # Blood Screen Var
 @onready var blood_screen = %BloodScreen
 var blood_tween: Tween
+
+# Prevents interacting with doors when an item is in front
+var _item_in_sight := false
 
 func get_move_speed() -> float:
 	if is_crouched:
@@ -330,6 +335,8 @@ func _physics_process(delta: float) -> void:
 	_slide_camera_smooth_back_to_origin(delta)
 	# Pick and Drop Func
 	_pick_drop(delta)
+	# Door Func
+	_door()
 	
 func _flashlight(delta: float) -> void:
 	flashlight.global_transform = Transform3D(
@@ -371,6 +378,8 @@ func _pick_drop(_delta):
 	# Drop
 	if hold_item and Input.is_action_just_pressed("drop"):
 		_drop_item(1.0, 2)
+		
+	_item_in_sight = result and result.collider is Item
 	# Ui
 	# default crosshair
 	mainsight1.visible = true
@@ -477,3 +486,54 @@ func show_message(text: String, duration := 3.0) -> void:
 	message_label.visible = true
 	await get_tree().create_timer(duration).timeout
 	message_label.visible = false
+
+func _door() -> void:
+	var space_state = get_world_3d().direct_space_state
+	var from = cam.global_transform.origin
+	var to = from + -cam.global_transform.basis.z * 3.0 # raycast length
+	var query = PhysicsRayQueryParameters3D.create(from, to)
+	query.exclude = [self]
+	var result = space_state.intersect_ray(query)
+	var found_interactable = false
+	
+	if not result.is_empty():
+		var node = result["collider"]
+		# Check what the ray hit and finds the object that can interact
+		while node:
+			if node.has_method("interact"):
+				found_interactable = true
+				break
+			node = node.get_parent()
+			
+	# Switch crosshair if object can be interacted with
+	if item_name_label.text == "":
+		mainsight1.visible = not found_interactable
+		mainsight2.visible = found_interactable
+	
+	if found_interactable and Input.is_action_just_pressed("pick") and not _item_in_sight:
+		var node = result["collider"]
+		while node:
+			if node.has_method("interact"):
+				# Checked if locked
+				if node.has_method("is_locked") and node.is_locked():
+					# try unlocking with held item
+					if hold_item != null:
+						if node.has_method("try_unlock_with_item"):
+							var msg = node.try_unlock_with_item(hold_item)
+							# show wrong key message
+							if msg != "":
+								show_message(msg)
+						else:
+							node.interact()
+					# no item held:
+					else:
+						if "locked_message" in node and node.locked_message != "":
+							show_message(node.locked_message)
+						else:
+							show_message("")
+						node.interact()
+				# normal interaction open/close
+				else:
+					node.interact()
+				return
+			node = node.get_parent()

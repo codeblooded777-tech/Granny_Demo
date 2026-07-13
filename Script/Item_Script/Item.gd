@@ -1,5 +1,25 @@
 extends RigidBody3D
 class_name Item
+# Hey guys, CodeBlooded here!
+# https://www.youtube.com/@codeblooded-v4e - My Youtube Channel
+# Please like, share and subscribe - Please subscribe it really helps me make more tutorials. Thanks!
+# https://sketchfab.com/alpez791 - My Sketchfab Voxel Model only
+# If you have any questions, feel free to message me.
+# GMAIL: codeblooded777@gmail.com
+#_________              .___      __________ .__                       .___           .___ 
+#\_   ___ \   ____    __| _/ ____ \______   \|  |    ____    ____    __| _/ ____    __| _/ 
+#/    \  \/  /  _ \  / __ |_/ __ \ |    |  _/|  |   /  _ \  /  _ \  / __ |_/ __ \  / __ |  
+#\     \____(  <_> )/ /_/ |\  ___/ |    |   \|  |__(  <_> )(  <_> )/ /_/ |\  ___/ / /_/ |  
+# \______  / \____/ \____ | \___  >|______  /|____/ \____/  \____/ \____ | \___  >\____ |  
+		#\/              \/     \/        \/                            \/     \/      \/  
+#
+#   ________             .___        __                          ____  .__                  
+# /  _____/   ____    __| _/ ____ _/  |_       ____    ____    / ___\ |__|  ____    ____   
+#/   \  ___  /  _ \  / __ | /  _ \\   __\    _/ __ \  /    \  / /_/  >|  | /    \ _/ __ \  
+#\    \_\  \(  <_> )/ /_/ |(  <_> )|  |      \  ___/ |   |  \ \___  / |  ||   |  \\  ___/  
+# \______  / \____/ \____ | \____/ |__|       \___  >|___|  //_____/  |__||___|  / \___  > 
+#        \/              \/                       \/      \/                   \/      \/ 
+# 
 
 signal item_out_of_bounds
 var _is_teleporting := false
@@ -45,6 +65,15 @@ func _pick(point: Marker3D) -> void:
 	body.disabled = true
 	_set_mesh_layer(false, true)
 	just_dropped = false
+	# look for a RemoteTransform3D that is currently linked to this drawer
+	for node in get_tree().get_nodes_in_group("drawer_remote"):
+		var absolute_remote = node.get_node_or_null(node.remote_path)
+		
+		# if this remote is pointing here, clear its path
+		if absolute_remote == self:
+			node.remote_path = NodePath("")
+			break
+
 	var area = get_node_or_null("drop_sound_detector")
 	if area:
 		area.monitoring = false
